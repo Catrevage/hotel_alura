@@ -4,14 +4,28 @@ public class Hospedes {
 	private int id;
 	private String nome;
 	private String sobreNome;
+	private String dataNascimento;
 	private String nacionalidade;
 	private String telefone;
 	private int idReserva;
 	 
-	public Hospedes(String nome, String sobreNome, String nacionalidade, String telefone,
+	public Hospedes(String nome, String sobreNome,String dataNascimento, String nacionalidade, String telefone,
 			int idReserva) {
 		this.nome = nome;
 		this.sobreNome = sobreNome;
+		this.dataNascimento = dataNascimento;
+		this.nacionalidade = nacionalidade;
+		this.telefone =telefone;
+		this.idReserva = idReserva;
+		
+	}
+	
+	public Hospedes(int id, String nome, String sobreNome, String dataNascimento, String nacionalidade, String telefone,
+			int idReserva) {
+		this.id = id;
+		this.nome = nome;
+		this.sobreNome = sobreNome;
+		this.dataNascimento = dataNascimento;
 		this.nacionalidade = nacionalidade;
 		this.telefone =telefone;
 		this.idReserva = idReserva;
@@ -20,6 +34,14 @@ public class Hospedes {
 
 	public int getId() {
 		return id;
+	}
+
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
 	}
 
 	public void setId(int id) {

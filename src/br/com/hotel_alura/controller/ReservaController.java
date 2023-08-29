@@ -1,6 +1,7 @@
 package br.com.hotel_alura.controller;
 
 import java.sql.Connection;
+import java.util.List;
 
 import br.com.hotel_alura.dao.ReservasDAO;
 import br.com.hotel_alura.factory.ConnectionFactory;
@@ -22,5 +23,14 @@ public class ReservaController {
 	public void deleta(int id) {
 		reservasDao.deletar(id);
 	}
+	
+	public List<Reservas> lista(){
+		return reservasDao.listar();
+	}
+	
+	public List<Reservas> busca(String value){
+		return reservasDao.buscaByID(value);
+	}
+	
 
 }

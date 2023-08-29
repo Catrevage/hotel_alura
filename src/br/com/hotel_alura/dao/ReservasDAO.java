@@ -29,7 +29,7 @@ public class ReservasDAO {
 				pstm.setString(1, reserva.getDataEntrada());
 				pstm.setString(2, reserva.getDataSaida());
 				pstm.setDouble(3, reserva.getValor());
-				pstm.setString(4, reserva.getFormaPagamento());
+				pstm.setString(4, reserva.getFormaPagamento().toUpperCase());
 
 				pstm.execute();
 
@@ -47,36 +47,68 @@ public class ReservasDAO {
 		}
 	}
 
-	public List<Reservas> listar(){
+	public List<Reservas> listar() {
 		try {
-			
+
 			List<Reservas> listaDeReservas = new ArrayList<Reservas>();
 			String sql = "SELECT * FROM RESERVAS";
-			
-			try(PreparedStatement pstm = connection.prepareStatement(sql, 
-					Statement.RETURN_GENERATED_KEYS)){
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 				pstm.execute();
-				
-				try(ResultSet rst = pstm.getGeneratedKeys()){
-					Reservas reserva = new Reservas(rst.getInt(1), 
-							rst.getString(2),
-							rst.getString(3),
-							rst.getDouble(4),
-							rst.getString(5));
-					listaDeReservas.add(reserva);
+
+				try (ResultSet rst = pstm.getResultSet()) {
+					while (rst.next()) {
+						Reservas reserva = new Reservas(rst.getInt(1), rst.getString(2), rst.getString(3),
+								rst.getDouble(4), rst.getString(5));
+
+						listaDeReservas.add(reserva);
+
+					}
+
 				}
 			}
-			
+
 			return listaDeReservas;
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+	
+	public List<Reservas> buscaByID(String value) {
+		int id = Integer.parseInt(value);
+		List<Reservas> listaDeReservas = new ArrayList<Reservas>();
+		try {
+
 			
-		}catch(SQLException e) {
+			String sql = "SELECT * FROM RESERVAS WHERE ID = ?";
+
+			try (PreparedStatement pstm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+				pstm.setInt(1, id);
+				pstm.execute();
+
+				try (ResultSet rst = pstm.getResultSet()) {
+					while (rst.next()) {
+						Reservas reserva = new Reservas(rst.getInt(1), rst.getString(2), rst.getString(3),
+								rst.getDouble(4), rst.getString(5));
+
+						listaDeReservas.add(reserva);
+
+					}
+
+				}
+			}
+
+			return listaDeReservas;
+
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
 	public void deletar(int id) {
 		try {
-			String sql = "DELETE * FROM RESERVAS WHERE ID = ?";
+			String sql = "DELETE FROM RESERVAS WHERE ID = ?";
 			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
 				pstm.setInt(1, id);
 				pstm.execute();

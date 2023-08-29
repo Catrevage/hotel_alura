@@ -1,29 +1,34 @@
 package br.com.hotel_alura.views;
 
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextField;
 import java.awt.Color;
-import com.toedter.calendar.JDateChooser;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import java.awt.EventQueue;
 import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.SystemColor;
-import java.awt.event.ActionListener;
+import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.text.Format;
-import java.awt.event.ActionEvent;
-import java.awt.Toolkit;
-import javax.swing.SwingConstants;
+import java.util.Date;
+
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import com.toedter.calendar.JDateChooser;
+
+import br.com.hotel_alura.controller.HospedeController;
+import br.com.hotel_alura.controller.ReservaController;
+import br.com.hotel_alura.model.DatasValidas;
+import br.com.hotel_alura.model.Hospedes;
 
 @SuppressWarnings("serial")
 public class RegistroHospede extends JFrame {
@@ -37,6 +42,10 @@ public class RegistroHospede extends JFrame {
 	private JComboBox<Format> txtNacionalidade;
 	private JLabel labelExit;
 	private JLabel labelAtras;
+	private HospedeController hospedeController = new HospedeController();
+	private ReservaController reservaController = new ReservaController();
+	private DatasValidas dataVal = new DatasValidas();
+	private int reservasKey = ReservasView.getReservaKey();
 	int xMouse, yMouse;
 
 	/**
@@ -95,6 +104,7 @@ public class RegistroHospede extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				MenuPrincipal principal = new MenuPrincipal();
 				principal.setVisible(true);
+				reservaController.deleta(reservasKey); 
 				dispose();
 			}
 			@Override
@@ -129,6 +139,7 @@ public class RegistroHospede extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				ReservasView reservas = new ReservasView();
 				reservas.setVisible(true);
+				reservaController.deleta(reservasKey); 
 				dispose();				
 			}
 			@Override
@@ -240,7 +251,9 @@ public class RegistroHospede extends JFrame {
 		txtNreserva.setBounds(560, 495, 285, 33);
 		txtNreserva.setColumns(10);
 		txtNreserva.setBackground(Color.WHITE);
+		txtNreserva.setEditable(false);
 		txtNreserva.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		txtNreserva.setText(String.valueOf(ReservasView.getReservaKey()));
 		contentPane.add(txtNreserva);
 		
 		JSeparator separator_1_2 = new JSeparator();
@@ -284,7 +297,43 @@ public class RegistroHospede extends JFrame {
 		btnsalvar.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
+				//valida data de nascimento para o formado do banco de dados
+				Date dataNascimento = txtDataN.getDate();
+				String dataNconvertida = dataVal.validarData(dataNascimento);
+				
+				//constroe a referência com os dados validados
+				Hospedes hospede = new Hospedes(
+						txtNome.getText(),
+						txtSobrenome.getText(),
+						dataNconvertida,
+						txtNacionalidade.getSelectedItem().toString(),
+						txtTelefone.getText(),
+						ReservasView.getReservaKey());//codigo da reserva gerado na classe ReservasView
+				
+				try {
+					
+					//armazena os dados da referência no banco e retorna o ID gerado;
+					int hospedeID = hospedeController.insere(hospede);
+					
+					JOptionPane.showMessageDialog(null, "Registro Salvo Com Sucesso! O Número"
+							+ " da Reserva foi: " + hospede.getIdReserva());
+					
+					MenuUsuario menu = new MenuUsuario();
+					menu.setVisible(true); 
+					dispose();
+					
+				}catch(Exception e1) {
+					
+					JOptionPane.showMessageDialog(null, "Registro Não Efetuado, chame o Bat Man!");
+					throw new RuntimeException(e1);
+				}
+				
+				
+				
 			}
+			
+			
 		});
 		btnsalvar.setLayout(null);
 		btnsalvar.setBackground(new Color(12, 138, 199));

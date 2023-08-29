@@ -49,8 +49,8 @@ public class ReservasView extends JFrame {
 	private String dataS;
 	private long numeroDias;
 	private long valorDaDiaria;
-	private String valorDaReserva;
-	private int reservaKey; 
+	private static String valorDaReserva;
+	private static int  reservaKey; 
 
 	/**
 	 * Launch the application.
@@ -158,13 +158,22 @@ public class ReservasView extends JFrame {
 				// ser calculado
 
 				if (txtDataE.getDate() != null && txtDataS.getDate() != null) {
+					//verifica se as variáveis de data de entrada e sai estão preenchidas
 					if(dataE == null && dataS == null) {
+						
+						//valida as datas no formado "yyyy-MM-dd" aceito pelo banco de dados
 						String dataE = datas.validarData(txtDataE.getDate());
 						String dataS = datas.validarData(txtDataS.getDate());
-						numeroDias = datas.calculaDias(dataE, dataS);
+						
+						//calcula o número de dias transcorrido entre as datas e o valor total da reserva
+						numeroDias = datas.calculaDias(dataE, dataS)+1;
 						valorDaDiaria = 20;
 						valorDaReserva = String.valueOf(numeroDias * valorDaDiaria);
+						
+						//mostra o valor da reserva ao usuário
 						txtValor.setText(valorDaReserva);
+						
+						//constroe a referência com os dados obtidos
 						reserva = new Reservas(dataE, dataS, Double.parseDouble(valorDaReserva),
 								txtFormaPagamento.getSelectedItem().toString());						
 					}
@@ -287,12 +296,14 @@ public class ReservasView extends JFrame {
 
 		JPanel btnAtras = new JPanel();
 		btnAtras.addMouseListener(new MouseAdapter() {
+			
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				MenuUsuario usuario = new MenuUsuario();
 				usuario.setVisible(true);
 				dispose();
-				System.out.println("entrei aqui");
+				System.out.println("clicou");
+				
 				
 			}
 
@@ -330,18 +341,22 @@ public class ReservasView extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (ReservasView.txtDataE.getDate() != null && ReservasView.txtDataS.getDate() != null) {
-						reserva.setFormaPagamento(txtFormaPagamento.getSelectedItem().toString());
 					
-
+					//seta a forma de pagamento atual	
+					reserva.setFormaPagamento(txtFormaPagamento.getSelectedItem().toString()); 
+					
 					try {
-						reservaKey = reservaController.insere(reserva);
-						System.out.println("A chave gerada foi: "+reservaKey);
+						
+						//insere a referência reserva no banco de dados e retorna o ID gerado
+						reservaKey = reservaController.insere(reserva); 
+					
 					} catch (Exception e1) {
 						e1.printStackTrace();
 					}
 
 					RegistroHospede registro = new RegistroHospede();
 					registro.setVisible(true);
+					
 				} else {
 					JOptionPane.showMessageDialog(null, "Deve preencher todos os campos.");
 				}
@@ -374,7 +389,11 @@ public class ReservasView extends JFrame {
 		this.setLocation(x - xMouse, y - yMouse);
 	}
 	
-	private int getReservaKey() {
-		return this.reservaKey;
+	public static int getReservaKey() {
+		return  reservaKey;
+	}
+	
+	public static String getValorReserva() {
+		return valorDaReserva;
 	}
 }
