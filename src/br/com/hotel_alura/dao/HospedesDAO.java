@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hotel_alura.model.Hospedes;
-import br.com.hotel_alura.model.Reservas;
 
 public class HospedesDAO {
 	private Connection connection;
@@ -114,5 +113,26 @@ public class HospedesDAO {
 			throw new RuntimeException(e);
 
 		}
+	}
+
+	public void update(String nome, String sobreNome, String dataNascimento, String nacionalidade, String telefone,
+			Integer id) {
+		try {
+			String sql = "UPDATE HOSPEDES SET NOME = ?, SOBRENOME = ?, DATANASCIMENTO = ?, NACIONALIDADE = ?,  TELEFONE = ? WHERE ID = ?";
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, nome);
+				pstm.setString(2, sobreNome);
+				pstm.setString(3, dataNascimento);
+				pstm.setString(4, nacionalidade);
+				pstm.setString(5, telefone);
+				pstm.setInt(6, id);
+				pstm.execute();
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		}
+		
 	}
 }

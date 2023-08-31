@@ -266,6 +266,27 @@ public class Buscar extends JFrame {
 		btnEditar.setBounds(635, 508, 122, 35);
 		btnEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 		contentPane.add(btnEditar);
+		
+		btnEditar.addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					
+					alterarReserva();
+					limparTabela(modelo);
+					populaTabelaReservas();
+				} catch(Exception expt) {
+					
+					alterarHospede();
+					limparTabela(modeloHospedes);
+					populaTabelaHospedes();
+					throw new RuntimeException(expt);
+				}
+			}
+			
+			
+		});
 
 		JLabel lblEditar = new JLabel("EDITAR");
 		lblEditar.setHorizontalAlignment(SwingConstants.CENTER);
@@ -367,6 +388,36 @@ public class Buscar extends JFrame {
 			reservaController.deleta(id);
 			modelo.removeRow(tbReservas.getSelectedRow());
 			JOptionPane.showMessageDialog(this, "Item excluído com sucesso!");
+		} else {
+			JOptionPane.showMessageDialog(this, "Por favor, selecionar o ID");
+		}
+	}
+	
+	
+	private void alterarReserva() {
+		Object objetoDaLinha = (Object) modelo.getValueAt(tbReservas.getSelectedRow(), tbReservas.getSelectedColumn());
+		if (objetoDaLinha instanceof Integer) {
+			Integer id = (Integer) objetoDaLinha;
+			String dataEntrada = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 1);
+			String dataSaida = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 2);
+			String valor = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 3);
+			String pagamento = (String) modelo.getValueAt(tbReservas.getSelectedRow(), 4);
+			reservaController.alterar(dataEntrada, dataSaida, Double.parseDouble(valor), pagamento.toUpperCase(), id);
+		} else {
+			JOptionPane.showMessageDialog(this, "Por favor, selecionar o ID");
+		}
+	}
+	
+	private void alterarHospede() {
+		Object objetoDaLinha = (Object) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), tbHospedes.getSelectedColumn());
+		if (objetoDaLinha instanceof Integer) {
+			Integer id = (Integer) objetoDaLinha;
+			String nome = (String) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), 1);
+			String sobreNome = (String) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), 2);
+			String dataNascimento = (String) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), 3);
+			String nacionalidade = (String) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), 4);
+			String telefone = (String) modeloHospedes.getValueAt(tbHospedes.getSelectedRow(), 5);
+			hospedeController.alterar(nome.toUpperCase(), sobreNome.toUpperCase(),dataNascimento, nacionalidade.toUpperCase(), telefone, id);
 		} else {
 			JOptionPane.showMessageDialog(this, "Por favor, selecionar o ID");
 		}

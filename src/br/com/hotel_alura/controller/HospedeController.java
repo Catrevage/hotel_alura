@@ -32,5 +32,11 @@ public class HospedeController {
 		hospedesDAO.deletaByreserva(id_reserva);
 	}
 
+	public void alterar(String nome, String sobreNome, String dataNascimento, String nacionalidade, String telefone,
+			Integer id) {
+		hospedesDAO.update(nome, sobreNome, dataNascimento, nacionalidade, telefone, id);
+		
+	}
+
 	
 }

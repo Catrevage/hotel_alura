@@ -31,6 +31,11 @@ public class ReservaController {
 	public List<Reservas> busca(String value){
 		return reservasDao.buscaByID(value);
 	}
+
+	public void alterar(String dataEntrada, String dataSaida, Double valor, String pagamento, Integer id) {
+		reservasDao.update(dataEntrada, dataSaida, valor, pagamento, id);
+		
+	}
 	
 
 }

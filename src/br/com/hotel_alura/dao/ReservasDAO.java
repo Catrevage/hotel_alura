@@ -8,8 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mysql.cj.protocol.Resultset;
-
 import br.com.hotel_alura.model.Reservas;
 
 public class ReservasDAO {
@@ -118,6 +116,25 @@ public class ReservasDAO {
 			throw new RuntimeException(e);
 
 		}
+	}
+
+	public void update(String dataEntrada, String dataSaida, Double valor, String pagamento, Integer id) {
+		try {
+			String sql = "UPDATE RESERVAS SET DATAENTRADA = ?, DATASAIDA = ?, VALOR = ?, FORMAPAGAMENTO = ? WHERE ID = ?";
+			try (PreparedStatement pstm = connection.prepareStatement(sql)) {
+				pstm.setString(1, dataEntrada);
+				pstm.setString(2, dataSaida);
+				pstm.setDouble(3, valor);
+				pstm.setString(4, pagamento);
+				pstm.setInt(5, id);
+				pstm.execute();
+			}
+
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+
+		}
+		
 	}
 
 }
