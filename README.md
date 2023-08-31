@@ -23,8 +23,7 @@
 <h3>Tela de Login</h3>
 <img src="igm_hotel/tela_login.png">
 
-<h3>Tela de Login</h3>
-<img srv="img_hotel/tela_login">
+
 
 
 
