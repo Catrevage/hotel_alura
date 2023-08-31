@@ -18,7 +18,7 @@
 <h2>Telas do APP</h2>
 
 <h3>Tela Principal</h3>
-<img src="hotel_alura/tela_principal.png">
+<img src="img_hotel/tela_principal.png">
 
 
 
