@@ -23,6 +23,10 @@
 <h3>Tela de Login</h3>
 <img src="img_hotel/tele_login.png">
 
+<h3>Tela Menu</h3>
+<img src="img_hotel/tela_menu_usuario.png">
+<p>Nesta tela o usuário pode escolher se deseja cadastrar uma reserva ou consultar uma reserva ja registrada.</p>
+
 
 
 
