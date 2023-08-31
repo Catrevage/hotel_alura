@@ -4,7 +4,7 @@
 <h2>Tecnologias utilizadas</h2>
 <ul>
  <li>Java SDK 20</li>
- <li>Java Swing</li>li>
+ <li>Java Swing</li>
  <li>Java JDBC</li>
  <li>Java C3P0 Pool</li>
  <li>MySql 8.0</li>
