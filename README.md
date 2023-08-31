@@ -27,12 +27,26 @@
 <img src="img_hotel/tela_menu_usuario.png">
 <p>Nesta tela o usuário pode escolher se deseja cadastrar uma reserva ou consultar uma reserva ja registrada.</p>
 
-<h2>Tela de Cadastro de Reservas</h2>
+<h3>Tela de Cadastro de Reservas</h3>
 <img src="img_hotel/tela_reservas1.png">
 <p>Aqui o usuário preenche os dados da reserva e o valor é calculado automáticamente levando em consideração o número de dias entre a data de entrade e saída e o valor da diária que está fixado em R$20,00</p>
 
+<h3>Tela de Cadastro de Hospedes</h3>
+<img src="img_hotel/tela_usuario.png">
+<p>Aqui o usuário preenche os dados do hóspede. O número da reserva não pode ser mudado, pois o valor é resgatado da tabela reservas.</p>
 
+<h3>Tela de Buscas</h3>
 
+<img src="img_hotel/busca_reservas.png">
+
+<p>Aqui o usuário consulta as reservas cadastradas. O usuário pode editar o deletar a reserva e pode buscar uma reserva pelo ID</p>
+
+<img src="img_hotel/busca_hospedes.png">
+<p>Pode ser feito os mesmos comando de editar e deletar,semelhante a tabela reservas. Aqui as buscas são feitas pelo sobrenome.</p>
+
+<h2>Considerações finais</h2>
+
+A finalidade do projeot foi desenvolver as habilidades aprendidas no curso de formação Springboot, com enfase no CRUD(Create, read,update, delete). O repositório segue público para contribuições. Obrigado!
 
 
  
