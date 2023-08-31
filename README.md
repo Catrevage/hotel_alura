@@ -18,7 +18,7 @@
 <h2>Telas do APP</h2>
 
 <h3>Tela Principal</h3>
-<img src="img_hotel/tela_principal.png" width="70px" heidth="50px">
+<img src="img_hotel/tela_principal.png" width="70" heidth="50">
 
 <h3>Tela de Login</h3>
 <img src="img_hotel/tele_login.png">
