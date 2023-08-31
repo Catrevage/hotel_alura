@@ -28,7 +28,7 @@
 <p>Nesta tela o usuário pode escolher se deseja cadastrar uma reserva ou consultar uma reserva ja registrada.</p>
 
 <h2>Tela de Cadastro de Reservas</h2>
-<img src="img_hotel/tele_reservas1.png">
+<img src="img_hotel/tela_reservas1.png">
 <p>Aqui o usuário preenche os dados da reserva e o valor é calculado automáticamente levando em consideração o número de dias entre a data de entrade e saída e o valor da diária que está fixado em R$20,00</p>
 
 
