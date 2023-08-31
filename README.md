@@ -21,7 +21,7 @@
 <img src="img_hotel/tela_principal.png">
 
 <h3>Tela de Login</h3>
-<img src="igm_hotel/tele_login.png">
+<img src="img_hotel/tele_login.png">
 
 
 
